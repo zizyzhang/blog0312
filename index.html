@@ -3,10 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Blog</title>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script>
+
+        function btn_post(){
+            $.post( "http://localhost:3000", function( data ) {
+                console.log(data);
+                $(".result" ).html(data);
+                var a = $('#comments').html();
+                var b = $('#name').value();
+                var c = $('#com').value();
+                console.log(b+c);
+
+
+                //$('#result').html($('#result').html() + "<h1 class='text-info2'>" + data[].name + "</h1>" + "<p>" + data[i].comment + "</p>");
+
+            });
+        }
+
+        $(document).ready(function(){
+
+
+            $.get('http://localhost:3000',function(data) {
+                console.log(data);
+                for (var i = 0;i < data.length;i++) {
+
+               $('#comments').html($('#comments').html() + "<h1 class='text-info'>" + data[i].name + "</h1>" + "<p>" + data[i].comment + "</p>");
+            }
+            });
+
+        });
+    </script>
 </head>
 <body>
 
-<input type="text" class="form-control">
+
+
+<div class="container">
+    <lable for="name">name</lable>
+    <input type="text" class="form-control" id="name" placeholder="enter your name">
+    <lable for="comment"></lable>
+    <input type="text" class="form-control" id="com" placeholder="enter your comment">
+    <button class="btn btn-primary" id="btnpost" onclick="btn_post()">post</button>
+    <h1 class="text-center">Comments</h1>
+    <div id="comments"></div>
+    <div id="result"></div></div>
 
 </body>
 </html>
